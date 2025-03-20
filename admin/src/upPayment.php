@@ -104,11 +104,11 @@ window.history.back();</script>";
                         <div class="form-group">
                           <label for="examplePayment">Payment Name</label>
                           <input type="hidden" class="form-control" id="payId" placeholder="" name="upPayId" value="<?php echo $row['pyID']; ?>">
-                          <input type="text" class="form-control" id="exampleInputPayment" placeholder="" name="upPayName" value="<?php echo $row['pyType']; ?>">
+                          <input type="text" class="form-control" id="exampleInputPayment" placeholder="" name="upPayName" value="<?php echo $row['pyType']; ?>" required>
                         </div>
                         <div class="form-group">
                           <label for="examplePaymentNum">Payment Number</label>
-                          <input type="text" class="form-control" id="exampleInputPaymentNum" placeholder="" name="upPayNum" value="<?php echo $row['pyNumber']; ?>">
+                          <input type="text" class="form-control" id="exampleInputPaymentNum" placeholder="" name="upPayNum" value="<?php echo $row['pyNumber']; ?>" required>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputCurImg">Current Image</label>
@@ -118,7 +118,7 @@ window.history.back();</script>";
                         <div class="form-group">
                           <input type="file" name="upPayImg" class="file-upload-default">
                           <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" required>
                             <span class="input-group-append">
                               <button class="file-upload-browse btn btn-gradient-info py-3" type="button">Upload</button>
                             </span>

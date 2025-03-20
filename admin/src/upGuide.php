@@ -106,15 +106,15 @@ if (isset($_POST["upGuide"])) {
                         <div class="form-group">
                           <input type="hidden" class="form-control" id="guId" placeholder="" value="<?php echo $rowGu['guID'] ?>" name="guId">
                           <label for="exampleInputGuide">Guide Name</label>
-                          <input type="text" class="form-control" id="exampleInputGuide" placeholder="" value="<?php echo $rowGu['guName'] ?>" name="guName">
+                          <input type="text" class="form-control" id="exampleInputGuide" placeholder="" value="<?php echo $rowGu['guName'] ?>" name="guName" required>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputGuLa">Language</label>
-                          <input type="text" class="form-control" id="exampleInputGuLa" placeholder="" value="<?php echo $rowGu['guLanguage'] ?>" name="guLan">
+                          <input type="text" class="form-control" id="exampleInputGuLa" placeholder="" value="<?php echo $rowGu['guLanguage'] ?>" name="guLan" required>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputCurImg">Current Image</label>
-                          <input type="hidden" class="form-control" id="exampleInputCurImg" value="<?php echo $rowGu['guImg']; ?>" name="oldGuImg">
+                          <input type="hidden" class="form-control" id="exampleInputCurImg" value="<?php echo $rowGu['guImg']; ?>" name="oldGuImg" required>
                           <img src="../../mainImg/<?php echo $rowGu["guImg"]; ?>" class="d-block w-25 h-25 rounded-3">
                         </div>
                         <div class="form-group">

@@ -79,11 +79,11 @@ if (isset($_POST["upCar"])) {
                       <input type="hidden" class="form-control" id="caId" placeholder="" value="<?php echo $rowCa['carID'] ?>" name="caId">
                       <div class="form-group">
                         <label for="exampleInputCar">Car Type Name</label>
-                        <input type="text" class="form-control" id="exampleInputCar" placeholder="" value="<?php echo $rowCa['carType'] ?>" name="cName">
+                        <input type="text" class="form-control" id="exampleInputCar" placeholder="" value="<?php echo $rowCa['carType'] ?>" name="cName" required>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputAvPeo">Available People</label>
-                        <input type="number" class="form-control" id="exampleInputAvPeo" placeholder="" value="<?php echo $rowCa['avaPeople'] ?>" name="caAvPeo">
+                        <input type="number" class="form-control" id="exampleInputAvPeo" placeholder="" value="<?php echo $rowCa['avaPeople'] ?>" name="caAvPeo" required>
                       </div>
                       <button type="submit" class="btn btn-gradient-info me-2" name="upCar">Update</button>
                     </form>

@@ -81,15 +81,15 @@ if (isset($_POST["upHotel"])) {
                   <input type="hidden" class="form-control" id="hoId" placeholder="" value="<?php echo $rowHo['hotID'] ?>" name="hoId">
                     <div class="form-group">
                       <label for="exampleInputHotel">Hotel Name</label>
-                      <input type="text" class="form-control" id="exampleInputHotel" placeholder="" value="<?php echo $rowHo['hoName'] ?>" name="hoName">
+                      <input type="text" class="form-control" id="exampleInputHotel" placeholder="" value="<?php echo $rowHo['hoName'] ?>" name="hoName" required>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputHoAd">Address</label>
-                      <input type="text" class="form-control" id="exampleInputHoAd" placeholder="" value="<?php echo $rowHo['hoAdd'] ?>" name="hoAdd">
+                      <input type="text" class="form-control" id="exampleInputHoAd" placeholder="" value="<?php echo $rowHo['hoAdd'] ?>" name="hoAdd" required>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputHoRa">Rating : Stars</label>
-                      <input type="number" class="form-control" id="exampleInputHoRa" placeholder="" value="<?php echo substr($rowHo['hoRating'],0,1); ?>" name="hoRate">
+                      <input type="number" class="form-control" id="exampleInputHoRa" placeholder="" value="<?php echo substr($rowHo['hoRating'],0,1); ?>" name="hoRate" required> 
                     </div>
                     <button type="submit" class="btn btn-gradient-info me-2" name="upHotel">Update</button>
                   </form>

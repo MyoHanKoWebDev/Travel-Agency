@@ -195,7 +195,7 @@ include("connection/loginCookies.php");
                         <a class="position-relative d-block h-100 overflow-hidden" href="">
                             <img class="img-fluid position-absolute w-100 h-100" src="../../mainImg/<?php echo $popularPackages[3]['pgImg'] ?>" alt="" style="object-fit: cover;">
                             <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">
-                                <?php htmlspecialchars($popularPackages[3]['pgTitle']); ?>
+                                <?php htmlspecialchars($popularPackages[3]['pgtitle']); ?>
                             </div>
                         </a>
                     </div>

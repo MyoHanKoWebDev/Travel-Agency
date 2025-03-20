@@ -7,8 +7,8 @@ if (isset($_POST["addHotel"])) {
   $hotelAdd = $_POST["hoAdd"];
   $hotelRat = $_POST["hoRate"];
 
-  $sqlTest = "SELECT * FROM hotel WHERE hoName = '$hotelName'";
-  $resultTest = mysqli_query($con, $sqlTest);
+  $sqlTest = "SELECT * FROM hotel WHERE hoName = '$hotelName' AND hoAdd = '$hotelAdd'";
+  $resultTest = mysqli_query($con, $sqlTest); 
   if (mysqli_num_rows($resultTest) > 0) {
     echo "<script> 
         alert('" . $hotelName . " already existed.');

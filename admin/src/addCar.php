@@ -6,14 +6,6 @@ if (isset($_POST["addCar"])) {
   $carName = $_POST["cName"];
   $carAvPeo = $_POST["cAvaPeo"];
 
-  $sqlTest = "SELECT * FROM car WHERE carType = '$carName'";
-  $resultTest = mysqli_query($con, $sqlTest);
-  if (mysqli_num_rows($resultTest) > 0) {
-    echo "<script> 
-        alert('" . $carName . " already existed.');
-        window.location.replace('addCar.php');
-        </script>";
-  } else {
     $sql = "INSERT INTO car (carType,avaPeople) VALUES ('$carName',$carAvPeo)";
     $result = mysqli_query($con, $sql);
     if ($result) {
@@ -27,7 +19,7 @@ if (isset($_POST["addCar"])) {
                      </script>";
     }
   }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

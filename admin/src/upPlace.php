@@ -6,13 +6,28 @@ if (isset($_POST["upPlace"])) {
   $upPlName = $_POST["plName"];
   $upPlId = $_POST["plId"];
 
-  $sqlUpPl = "UPDATE place SET plName = '$upPlName' WHERE plID = $upPlId";
-  if (mysqli_query($con, $sqlUpPl)) {
-    echo "<script>alert('Place Name updated successfully');
-        window.location.replace('viewPlace.php');</script>";
+  $placeName = strtolower($upPlName);
+  $placeNameArr = str_split($placeName);
+  $placeNameChar = strtoupper($placeNameArr[0]);
+
+  for ($i = 1; $i < count($placeNameArr); $i++) {
+    $placeNameChar  .= $placeNameArr[$i];
+  }
+
+  $sqltest = "SELECT plName FROM place WHERE plName = '$placeNameChar'";
+  $resulttest = mysqli_query($con, $sqltest);
+  if (mysqli_num_rows($resulttest) >= 1) {
+    echo "<script>alert('Place Name ( " . htmlspecialchars($placeNameChar, ENT_QUOTES, 'UTF-8') . " ) already existed.Unavailable Update.');
+        window.history.back();</script>";
   } else {
-    echo "<script>alert('Cant't Update');
-        window.location.back();</script>";
+    $sqlUpPl = "UPDATE place SET plName = '$upPlName' WHERE plID = $upPlId";
+    if (mysqli_query($con, $sqlUpPl)) {
+      echo "<script>alert('Place Name updated successfully');
+          window.location.replace('viewPlace.php');</script>";
+    } else {
+      echo "<script>alert('Cant't Update');
+          window.history.back();</script>";
+    }
   }
 }
 
@@ -81,7 +96,7 @@ if (isset($_POST["upPlace"])) {
                         <div class="form-group">
                           <label for="exampleInputPlace">Place Name</label>
                           <input type="hidden" class="form-control" id="plId" placeholder="" value="<?php echo $rowPl['plID'] ?>" name="plId">
-                          <input type="text" class="form-control" id="exampleInputPlace" placeholder="" value="<?php echo $rowPl['plName'] ?>" name="plName">
+                          <input type="text" class="form-control" id="exampleInputPlace" placeholder="" value="<?php echo $rowPl['plName'] ?>" name="plName" Required>
                         </div>
                         <button type="submit" class="btn btn-gradient-info me-2" name="upPlace">Update</button>
 
