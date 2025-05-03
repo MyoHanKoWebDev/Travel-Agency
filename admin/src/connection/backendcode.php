@@ -7,7 +7,11 @@ ini_set('display_errors', 1);
 /*******add Package *******/
 if (isset($_POST["addPack"])) {
     $title = $_POST["packTt"];
-    $price = number_format($_POST["packPr"], 0, '', ',');
+    if (is_numeric($_POST["packPr"])) {
+        $price = number_format($_POST["packPr"], 0, '', ',');
+    } else {
+        $price = $_POST["packPr"];
+    }
     $duration = $_POST["packDu"];
     $avPeople = $_POST["packAp"];
     $leaveDate = $_POST["packDt"] . " : " . $_POST['packTime'];
@@ -74,7 +78,11 @@ if (isset($_POST["addPack"])) {
 if (isset($_POST["upPg"])) {
     $upPgId = $_POST["upPgId"];
     $upPgTt = $_POST['upPgTt'];
-    $upPgPrice = number_format( $_POST['upPgPrice'], 0, '', ',');
+    if (is_numeric($_POST['upPgPrice'])) {
+        $upPgPrice = number_format($_POST['upPgPrice'], 0, '', ',');
+    } else {
+        $upPgPrice = $_POST['upPgPrice'];
+    }
     $upPgDu = $_POST["upPgDu"];
     $upPgNumOfPeo = $_POST["upPgNumOfPeo"];
     $upPgDate = $_POST["upPgDate"] . " : " . $_POST['upPgTime'];
