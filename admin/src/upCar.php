@@ -7,13 +7,22 @@ if (isset($_POST["upCar"])) {
   $upCaAvPeo = $_POST["caAvPeo"];
   $upCaId = $_POST["caId"];
 
-  $sqlUpCa = "UPDATE car SET carType = '$upCaName',avaPeople = $upCaAvPeo WHERE carID = $upCaId";
-  if (mysqli_query($con, $sqlUpCa)) {
-    echo "<script>alert('Car Information updated successfully');
-        window.location.replace('viewCar.php');</script>";
-  }else{
-    echo "<script>alert('Cant't Update');
-        window.location.back();</script>";
+  $sqlTest = "SELECT * FROM car WHERE carType = '$upCaName' AND avaPeople = '$upCaAvPeo'";
+  $resultTest = mysqli_query($con, $sqlTest);
+  if (mysqli_num_rows($resultTest) > 0) {
+    echo "<script> 
+        alert('" . $upCaName . " wiht " . $upCaAvPeo . " available car has already existed. Can't Update');
+        window.location.replace('upCar.php');
+        </script>";
+  } else {
+    $sqlUpCa = "UPDATE car SET carType = '$upCaName',avaPeople = $upCaAvPeo WHERE carID = $upCaId";
+    if (mysqli_query($con, $sqlUpCa)) {
+      echo "<script>alert('Car Information updated successfully');
+          window.location.replace('viewCar.php');</script>";
+    } else {
+      echo "<script>alert('Cant't Update');
+          window.location.back();</script>";
+    }
   }
 }
 ?>
@@ -69,29 +78,29 @@ if (isset($_POST["upCar"])) {
                 <div class="card-body">
                   <h4 class="card-title text-info fs-5">Update Car Form</h4>
                   <?php
-                  if(isset($_GET['upCar'])){
+                  if (isset($_GET['upCar'])) {
                     $caId = $_GET["upCar"];
                     $sqlCa = "SELECT * FROM car WHERE carID = $caId";
                     $resultCa = mysqli_query($con, $sqlCa);
-                    while ($rowCa = mysqli_fetch_array($resultCa)) {           
+                    while ($rowCa = mysqli_fetch_array($resultCa)) {
                   ?>
-                    <form class="forms-sample" method="post">
-                      <input type="hidden" class="form-control" id="caId" placeholder="" value="<?php echo $rowCa['carID'] ?>" name="caId">
-                      <div class="form-group">
-                        <label for="exampleInputCar">Car Type Name</label>
-                        <input type="text" class="form-control" id="exampleInputCar" placeholder="" value="<?php echo $rowCa['carType'] ?>" name="cName" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputAvPeo">Available People</label>
-                        <input type="number" class="form-control" id="exampleInputAvPeo" placeholder="" value="<?php echo $rowCa['avaPeople'] ?>" name="caAvPeo" required>
-                      </div>
-                      <button type="submit" class="btn btn-gradient-info me-2" name="upCar">Update</button>
-                    </form>
-                  <?php } 
-                  }else{
+                      <form class="forms-sample" method="post">
+                        <input type="hidden" class="form-control" id="caId" placeholder="" value="<?php echo $rowCa['carID'] ?>" name="caId">
+                        <div class="form-group">
+                          <label for="exampleInputCar">Car Type Name</label>
+                          <input type="text" class="form-control" id="exampleInputCar" placeholder="" value="<?php echo $rowCa['carType'] ?>" name="cName" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputAvPeo">Available People</label>
+                          <input type="number" class="form-control" id="exampleInputAvPeo" placeholder="" value="<?php echo $rowCa['avaPeople'] ?>" name="caAvPeo" required>
+                        </div>
+                        <button type="submit" class="btn btn-gradient-info me-2" name="upCar">Update</button>
+                      </form>
+                  <?php }
+                  } else {
                     header("Location : index.php");
                   }
-                    ?>
+                  ?>
                 </div>
               </div>
             </div>
