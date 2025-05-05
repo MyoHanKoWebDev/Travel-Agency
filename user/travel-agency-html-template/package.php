@@ -196,11 +196,11 @@ include("connection/loginCookies.php");
 
                 if ($budget != '') {
                     if ($budget == 'low') {
-                        $sql .= " AND p.pgPrice < '200,000'";
+                        $sql .= " AND p.pgPrice < '400,000'";
                     } elseif ($budget == 'medium') {
-                        $sql .= " AND p.pgPrice BETWEEN '200,000' AND '400,000'";
+                        $sql .= " AND p.pgPrice BETWEEN '400,000' AND '700,000'";
                     } else {
-                        $sql .= " AND p.pgPrice > '400,000'";
+                        $sql .= " AND p.pgPrice > '700,000'";
                     }
                 }
                 $sql .= " ORDER BY pgCreated DESC";

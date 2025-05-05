@@ -166,7 +166,7 @@ if (isset($_GET['conID'])) {
                                                             $serviceChg = $priceFinal * 0.03; // 3/100 reduce 3%
                                                             $serviceNum = number_format($serviceChg, 0, '', ',');
                                                             echo number_format($serviceChg + $priceFinal, 0, '', ',') ?></td>
-                                                        <td><?php echo timeAgo($row['bDate']) ?></td>
+                                                        <td><?php echo !empty($row['bDate']) ? timeAgo($row['bDate']) : "No date available"; ?></td>
                                                         <?php echo $row['pgStatus'] == 'active' ? '<td class = "text-success">Active</td>' : '<td class = "text-danger">Expired</td>'; ?>
                                                         <td class="text-success fw-bold"><?php echo $row['bstatus'] ?></td>
                                                     </tr>

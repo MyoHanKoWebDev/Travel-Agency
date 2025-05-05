@@ -148,7 +148,7 @@ include("connection/loginCookies.php");
             </div>
             <div class="row g-3">
                 <?php
-                $sql = "SELECT pg.pgImg, pg.pgtitle
+                $sql = "SELECT pg.pgImg, pg.pgtitle, pg.pgID
                         FROM package pg
                         JOIN bookingDetail bd ON pg.pgID = bd.pgID
                         JOIN booking b ON bd.bID = b.bID
@@ -164,27 +164,27 @@ include("connection/loginCookies.php");
                 <div class="col-lg-7 col-md-6">
                     <div class="row g-3">
                         <?php foreach ($popularPackages as $index => $package): ?>
-                            <?php if ($index == 0):
+                            <?php if ($index == 0){
                             ?>
                                 <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
-                                    <a class="position-relative d-block overflow-hidden" href="">
+                                    <a class="position-relative d-block overflow-hidden" href="readMorePack.php?reMorePg=<?php echo $package["pgID"]; ?>" >
                                         <img class="img-fluid" src="../../mainImg/<?php echo $package['pgImg']; ?>" alt="">
                                         <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">
                                             <?php echo $package['pgtitle']; ?>
                                         </div>
                                     </a>
                                 </div>
-                            <?php else:
+                            <?php }else if($index == 1 || $index==2){
                             ?>
                                 <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.<?php $index * 2 + 1; ?>s">
-                                    <a class="position-relative d-block overflow-hidden" href="">
+                                    <a class="position-relative d-block overflow-hidden" href="readMorePack.php?reMorePg=<?php echo $package["pgID"]; ?>">
                                         <img class="img-fluid" src="../../mainImg/<?php echo $package['pgImg']; ?>" alt="">
                                         <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">
                                             <?php echo $package['pgtitle']; ?>
                                         </div>
                                     </a>
                                 </div>
-                            <?php endif; ?>
+                            <?php } ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -192,10 +192,10 @@ include("connection/loginCookies.php");
                 <?php if (isset($popularPackages[3])):
                 ?>
                     <div class="col-lg-5 col-md-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;">
-                        <a class="position-relative d-block h-100 overflow-hidden" href="">
+                        <a class="position-relative d-block h-100 overflow-hidden" href="readMorePack.php?reMorePg=<?php echo $package["pgID"]; ?>" >
                             <img class="img-fluid position-absolute w-100 h-100" src="../../mainImg/<?php echo $popularPackages[3]['pgImg'] ?>" alt="" style="object-fit: cover;">
                             <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">
-                                <?php htmlspecialchars($popularPackages[3]['pgtitle']); ?>
+                                <?php echo htmlspecialchars($popularPackages[3]['pgtitle']); ?>
                             </div>
                         </a>
                     </div>

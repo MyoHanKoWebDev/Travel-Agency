@@ -415,8 +415,15 @@ if (isset($_SESSION['cusArr1'])) {
                         if (mysqli_num_rows($res) > 0) {
                             $cusArr1 = mysqli_fetch_assoc($res);
                             $_SESSION["cusArr1"] = $cusArr1;
-                            header("Location: index.php");
-                        }
+                            if (isset($_SESSION['redirect_after_login'])) {
+                                $redirectUrl = $_SESSION['redirect_after_login'];
+                                unset($_SESSION['redirect_after_login']);
+                            } else {
+                                $redirectUrl = 'index.php';
+                            }
+            
+                            header("Location: $redirectUrl");
+                            exit;                        }
                        
                     } else {
                         echo "<script>alert('Something Wrong " . mysqli_error($con) . "');</script>";
@@ -491,8 +498,6 @@ if (isset($_SESSION['cusArr1'])) {
                 if (isset($_SESSION['redirect_after_login'])) {
                     $redirectUrl = $_SESSION['redirect_after_login'];
                     unset($_SESSION['redirect_after_login']);
-                } elseif (isset($_SERVER['HTTP_REFERER'])) {
-                    $redirectUrl = $_SERVER['HTTP_REFERER'];
                 } else {
                     $redirectUrl = 'index.php';
                 }
@@ -508,12 +513,12 @@ if (isset($_SESSION['cusArr1'])) {
                 $_SESSION['last_attempt_time'][$email1] = time();
                 echo "<script>
                 alert('Incorrect password. You have " . (3 - $_SESSION['failed_attempts'][$email1]) . " attempts left.');
-                 window.location.replace('login.php');</script>";
+                window.history.back();</script>";
             }
         } else {
             echo "<script>
             alert('No user found with this email.');
-             window.location.replace('login.php');</script>";
+            window.history.back();</script>";
         }
     }
     ob_end_flush(); // Flush output at the end
@@ -530,14 +535,14 @@ if (isset($_SESSION['cusArr1'])) {
                         <a href="#" class="social-icon"><img src="../../mainImg/twitter (1).png" alt="" class="img"></a>
                     </div>
                     <span class="text-gray">or use your email for registration</span>
-                    <input type="text" placeholder="Name" class="form-control input" name="name" required />
+                    <input type="text" placeholder="Name" class="form-control input" name="name" required value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" />
                     <?php if ($nres != "") { ?>
                         <div class>
                             <span class="text-danger"><?php echo $nres; ?></span>
                         </div>
                     <?php } ?>
-                    <input type="email" placeholder="Email" class="form-control input" name="email" required />
-                    <input type="text" placeholder="Phone Number" class="form-control input" name="phone" required />
+                    <input type="email" placeholder="Email" class="form-control input" name="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"/>
+                    <input type="text" placeholder="Phone Number" class="form-control input" name="phone" required value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>"/>
                     <div class="password-container">
                         <input type="password" id="password" placeholder="Password" class="form-control input" name="pass" required />
                         <i class="fa fa-eye-slash" id="togglePassword"></i>

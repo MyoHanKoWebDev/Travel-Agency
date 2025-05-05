@@ -4,6 +4,8 @@ include("dbcon.php");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// date_default_timezone_set('Asia/Yangon');
+
 /*******add Package *******/
 if (isset($_POST["addPack"])) {
     $title = $_POST["packTt"];
@@ -147,6 +149,38 @@ if (isset($_POST["upPg"])) {
 
 
 /*******edit time function *******/
+// function timeAgo($dateTime)
+// {
+//     $timestamp = strtotime($dateTime);
+//     $timeDiff = time() - $timestamp;
+
+//     if ($timeDiff < 0) {
+//         $timeDiff = abs($timeDiff);
+//         if ($timeDiff < 60) {
+//             return $timeDiff . " seconds from now";
+//         } elseif ($timeDiff < 3600) {
+//             return floor($timeDiff / 60) . " minutes from now";
+//         } elseif ($timeDiff < 86400) {
+//             return floor($timeDiff / 3600) . " hours from now";
+//         } elseif ($timeDiff < 604800) {
+//             return floor($timeDiff / 86400) . " days from now";
+//         } else {
+//             return date("F j, Y", $timestamp);
+//         }
+//     } else {
+//         if ($timeDiff < 60) {
+//             return $timeDiff . " seconds ago";
+//         } elseif ($timeDiff < 3600) {
+//             return floor($timeDiff / 60) . " minutes ago";
+//         } elseif ($timeDiff < 86400) {
+//             return floor($timeDiff / 3600) . " hours ago";
+//         } elseif ($timeDiff < 604800) {
+//             return floor($timeDiff / 86400) . " days ago";
+//         } else {
+//             return date("F j, Y", $timestamp);
+//         }
+//     }
+// }
 function timeAgo($dateTime)
 {
     $timestamp = strtotime($dateTime);
@@ -162,5 +196,6 @@ function timeAgo($dateTime)
         return floor($timeDiff / 86400) . " days ago";
     } else {
         return date("F j, Y", $timestamp);
-    }
-}
+    }  
+} 
+

@@ -50,7 +50,6 @@ if (isset($_POST['signIn'])) {
         }
     </style>
 
-
 </head>
 
 <body>
