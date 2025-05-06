@@ -2,16 +2,49 @@
 include("connection/dbcon.php");
 include("connection/auth.php");
 include("connection/backendcode.php");
+include("connection/mailFile.php");
 
+// Check if booking is confirmed
 if (isset($_GET['conID'])) {
     $conId = $_GET['conID'];
-    $sqlCon = "UPDATE booking SET bstatus = 'Confirmed' WHERE bID = $conId";
-    if (mysqli_query($con, $sqlCon)) {
-        echo "<script>
-        window.location.replace('conBook.php')
-         </script>";
+
+    // Get customer email and package title
+    $sqlCusEmail = "SELECT c.cusEmail, c.cusName, pg.pgtitle FROM booking bk
+                    LEFT JOIN customer c ON c.cusID = bk.cusID
+                    LEFT JOIN bookingdetail bd ON bk.bID = bd.bID
+                    LEFT JOIN package pg ON bd.pgID = pg.pgID
+                    WHERE bk.bID = $conId";
+    $resCusEmail = mysqli_query($con, $sqlCusEmail);
+    
+    if (mysqli_num_rows($resCusEmail) > 0) {
+        $rowCusEmail = mysqli_fetch_assoc($resCusEmail);
+        $customerEmail = $rowCusEmail['cusEmail'];
+        $customerName = $rowCusEmail['cusName'];
+        $packageTitle = $rowCusEmail['pgtitle'];
+
+        // Update booking status to Confirmed
+        $sqlCon = "UPDATE booking SET bstatus = 'Confirmed' WHERE bID = $conId";
+        if (mysqli_query($con, $sqlCon)) {
+            // Send email notification
+            sendEmail($customerEmail, $customerName, $packageTitle, "Confirmed");
+
+            echo "<script>
+                alert('Booking Confirmed & Email Sent!');
+                window.location.replace('conBook.php');
+            </script>";
+        }
     }
 }
+
+// if (isset($_GET['conID'])) {
+//     $conId = $_GET['conID'];
+//     $sqlCon = "UPDATE booking SET bstatus = 'Confirmed' WHERE bID = $conId";
+//     if (mysqli_query($con, $sqlCon)) {
+//         echo "<script>
+//         window.location.replace('conBook.php')
+//          </script>";
+//     }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">

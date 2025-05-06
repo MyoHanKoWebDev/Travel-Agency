@@ -2,16 +2,49 @@
 include("connection/dbcon.php");
 include("connection/auth.php");
 include("connection/backendcode.php");
+include("connection/mailFile.php");
 
+// Check if booking is rejected
 if (isset($_GET['rejID'])) {
-    $conId = $_GET['rejID'];
-    $sqlCon = "UPDATE booking SET bstatus = 'Rejected' WHERE bID = $conId";
-    if (mysqli_query($con, $sqlCon)) {
-        echo "<script>
-        window.location.replace('rejBook.php')
-         </script>";
+    $rejId = $_GET['rejID'];
+
+    // Get customer email and package title
+    $sqlCusEmail = "SELECT c.cusEmail, c.cusName, pg.pgtitle FROM booking bk
+                    LEFT JOIN customer c ON c.cusID = bk.cusID
+                    LEFT JOIN bookingdetail bd ON bk.bID = bd.bID
+                    LEFT JOIN package pg ON bd.pgID = pg.pgID
+                    WHERE bk.bID = $rejId";
+    $resCusEmail = mysqli_query($con, $sqlCusEmail);
+    
+    if (mysqli_num_rows($resCusEmail) > 0) {
+        $rowCusEmail = mysqli_fetch_assoc($resCusEmail);
+        $customerEmail = $rowCusEmail['cusEmail'];
+        $customerName = $rowCusEmail['cusName'];
+        $packageTitle = $rowCusEmail['pgtitle'];
+
+        // Update booking status to Rejected
+        $sqlRej = "UPDATE booking SET bstatus = 'Rejected' WHERE bID = $rejId";
+        if (mysqli_query($con, $sqlRej)) {
+            // Send email notification
+            sendEmail($customerEmail, $customerName, $packageTitle, "Rejected");
+
+            echo "<script>
+                alert('Booking Rejected & Email Sent!');
+                window.location.replace('rejBook.php');
+            </script>";
+        }
     }
 }
+
+// if (isset($_GET['rejID'])) {
+//     $conId = $_GET['rejID'];
+//     $sqlCon = "UPDATE booking SET bstatus = 'Rejected' WHERE bID = $conId";
+//     if (mysqli_query($con, $sqlCon)) {
+//         echo "<script>
+//         window.location.replace('rejBook.php')
+//          </script>";
+//     }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
