@@ -37,7 +37,7 @@ Import the SQL file to your local database (phpMyAdmin)
 
 Run the app using XAMPP
 
-Access it via http://localhost/travel-agency/index.php
+Access it via http://localhost/Travel-Agency/user/travel-agency-html-template/index.php
 
 🗂️ Importing the Database
 A SQL file is included in the project folder (/travel-agency/travel-agency-db.sql) to help you set up the database quickly.
